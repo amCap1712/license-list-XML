@@ -5,12 +5,6 @@ on:
     tags:
       - "*"
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup upterm session
-      - uses: lhotari/action-upterm@v1
   validate_canonical_match:
     name: Deploy
     runs-on: ubuntu-latest
@@ -21,6 +15,8 @@ jobs:
           java-version: '11'
       - run: git config --global user.email "gary@sourceauditor.com"
       - run: git config --global user.name "License Publisher (maintained by Gary O'Neall)"
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       - run: make deploy-license-data
         env:
           LICENSE_LIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
